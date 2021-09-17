@@ -1,12 +1,20 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {resolve} from "@angular/compiler-cli/src/ngtsc/file_system";
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
-
-if (environment.production) {
-  enableProdMode();
+let money = 10000;
+const buyACar = (car: any) => {
+  return new Promise(((resolve, reject) => {
+    setTimeout(() => {
+      if (money >= 10000) {
+        resolve("can buy " + car);
+      } else {
+        reject("Do not enough money");
+      }
+    }, 100);
+  }))
 }
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+money = 1000001;
+const promise = buyACar("Vinfast").then(value => {
+  console.log(value);
+}, error => {
+  console.log(error);
+})
